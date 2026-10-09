@@ -135,9 +135,6 @@ p { margin: 0 0 1em; }
 .icon { flex: none; }
 .btn .icon { width: 18px; height: 18px; transition: transform .25s var(--ease); }
 .btn:hover .icon { transform: translateX(3px); }
-.hero__scroll { position: absolute; left: 50%; bottom: 24px; width: 26px; height: 42px; border: 2px solid var(--muted); border-radius: 14px; transform: translateX(-50%); }
-.hero__scroll span { position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; background: var(--yellow); border-radius: 2px; animation: scrollDot 1.6s infinite; }
-@keyframes scrollDot { 0% { opacity: 0; transform: translateY(0); } 40% { opacity: 1; } 100% { opacity: 0; transform: translateY(14px); } }
 
 /* ---------- Logo 3D ---------- */
 .hero__logo { perspective: 1100px; display: grid; place-items: center; }
@@ -378,7 +375,6 @@ p { margin: 0 0 1em; }
 @media (max-width: 560px) {
   .stats { grid-template-columns: 1fr; }
   .steps, .clients__list, .gallery { grid-template-columns: 1fr; }
-  .hero__scroll { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
