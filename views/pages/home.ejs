@@ -35,9 +35,6 @@
 
   <section class="section about" id="intro">
     <div class="container about__inner">
-      <figure class="about__photo reveal tilt">
-        <img src="/img/sans-ballon-bloc-451-800.webp" srcset="/img/sans-ballon-bloc-451-800.webp 800w, /img/sans-ballon-bloc-451-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 480px" alt="<%= tr.about.photoAlt %>" width="800" height="450" loading="lazy" decoding="async">
-      </figure>
       <div class="about__text reveal">
         <h2 class="h2"><%= tr.about.title %></h2>
         <p class="lead"><%= tr.about.text %></p>
@@ -56,7 +53,7 @@
     <div class="container teasers__grid">
       <% tr.teasers.forEach((tz, i) => { %>
       <a class="teaser reveal tilt" href="<%= routes[tz[0]] %>" style="--d:<%= i %>">
-        <img src="/img/<%= i === 0 ? 'sans-ballon-pressing' : 'avec-ballon-attaque-demi-espace' %>-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async">
+        <img src="/img/<%= i === 0 ? 'maja-analyse' : 'avec-ballon-attaque-demi-espace' %>-800.webp"<%- i === 0 ? ' style="object-position: center 80%"' : '' %> alt="" width="800" height="450" loading="lazy" decoding="async">
         <span class="teaser__body">
           <span class="teaser__title"><%= tz[1] %></span>
           <span class="teaser__text"><%= tz[2] %></span>

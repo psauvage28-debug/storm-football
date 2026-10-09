@@ -84,8 +84,8 @@ const dict = {
       title: 'Transformer chaque match en opportunité de progresser',
       text: 'Mon objectif : aider les joueurs à mieux comprendre leur jeu, identifier leurs points forts et leurs axes de progression.',
       name: 'Théo Brugel',
-      role: 'Fondateur & analyste vidéo — ex-FC Girondins de Bordeaux',
-      stat: [['4', 'ans d’analyse vidéo en club pro'], ['1:1', 'un suivi 100 % individuel'], ['FR/EN', 'accompagnement bilingue']],
+      role: 'Fondateur & analyste de matchs — ex-FC Girondins de Bordeaux',
+      stat: [['4', 'ans d’analyse vidéo en club pro'], ['100 %', 'un suivi individuel et personnalisé'], ['FR/EN', 'accompagnement bilingue']],
       photoAlt: 'Exemple d’analyse STORM : bloc défensif de l’équipe de France annoté',
     },
     approach: {
@@ -209,8 +209,8 @@ const dict = {
       title: 'Turning every match into a chance to improve',
       text: 'My goal: to help players better understand their game, identify their strengths and their areas for improvement.',
       name: 'Théo Brugel',
-      role: 'Founder & video analyst — former FC Girondins de Bordeaux',
-      stat: [['4', 'years of video analysis at a pro club'], ['1:1', 'fully individual follow-up'], ['FR/EN', 'bilingual coaching']],
+      role: 'Founder & match analyst — former FC Girondins de Bordeaux',
+      stat: [['4', 'years of video analysis at a pro club'], ['100%', 'individual, personalised follow-up'], ['FR/EN', 'bilingual coaching']],
       photoAlt: 'Example of a STORM analysis: annotated defensive block of the French national team',
     },
     approach: {
