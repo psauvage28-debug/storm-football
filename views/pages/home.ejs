@@ -1,0 +1,73 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<main id="main">
+  <section class="hero" data-hero>
+    <div class="hero__bg" aria-hidden="true"><div class="hero__grid"></div><div class="hero__bolt"></div></div>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="kicker"><%= tr.hero.kicker %></p>
+        <h1 class="hero__title">
+          <% tr.hero.words.forEach((w, i) => { %><span class="hero__word" style="--d:<%= i %>"><%= w %></span><% }) %>
+          <span class="sr-only"> — STORM Football</span>
+        </h1>
+        <p class="hero__lead"><%= tr.hero.lead %></p>
+        <ul class="tags">
+          <li><%- include('../partials/icon', { name: 'video' }) %> <%= tr.hero.tags[0] %></li>
+          <li><%- include('../partials/icon', { name: 'ball' }) %> <%= tr.hero.tags[1] %></li>
+          <li><%- include('../partials/icon', { name: 'chart' }) %> <%= tr.hero.tags[2] %></li>
+        </ul>
+        <a class="btn btn--cta" href="<%= routes.contact %>"><%= tr.cta %> <%- include('../partials/icon', { name: 'arrow' }) %></a>
+      </div>
+
+      <div class="hero__logo">
+        <div class="logo3d" data-logo3d="scroll">
+          <div class="logo3d__stack">
+            <% for (let i = 10; i >= 1; i--) { %><img class="logo3d__layer" style="--i:<%= i %>" src="/img/logo-storm.webp" alt="" width="720" height="720" aria-hidden="true"><% } %>
+            <img class="logo3d__face" src="/img/logo-storm.webp" alt="Logo STORM Football" width="720" height="720" fetchpriority="high">
+          </div>
+          <div class="logo3d__shadow" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+    <a class="hero__scroll" href="#intro" aria-label="<%= tr.hero.scroll %>"><span></span></a>
+  </section>
+
+  <section class="section about" id="intro">
+    <div class="container about__inner">
+      <figure class="about__photo reveal tilt">
+        <img src="/img/sans-ballon-bloc-451-800.webp" srcset="/img/sans-ballon-bloc-451-800.webp 800w, /img/sans-ballon-bloc-451-1600.webp 1600w" sizes="(max-width: 860px) 92vw, 480px" alt="<%= tr.about.photoAlt %>" width="800" height="450" loading="lazy" decoding="async">
+      </figure>
+      <div class="about__text reveal">
+        <h2 class="h2"><%= tr.about.title %></h2>
+        <p class="lead"><%= tr.about.text %></p>
+        <div class="sign">
+          <img class="avatar" src="/img/theo-brugel-160.webp" srcset="/img/theo-brugel-160.webp 160w, /img/theo-brugel-320.webp 320w" sizes="64px" alt="Portrait de Théo Brugel" width="160" height="160" loading="lazy">
+          <p><strong><%= tr.about.name %></strong><br><%= tr.about.role %></p>
+        </div>
+        <dl class="stats">
+          <% tr.about.stat.forEach(s => { %><div><dt><%= s[0] %></dt><dd><%= s[1] %></dd></div><% }) %>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section teasers">
+    <div class="container teasers__grid">
+      <% tr.teasers.forEach((tz, i) => { %>
+      <a class="teaser reveal tilt" href="<%= routes[tz[0]] %>" style="--d:<%= i %>">
+        <img src="/img/<%= i === 0 ? 'sans-ballon-pressing' : 'avec-ballon-attaque-demi-espace' %>-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async">
+        <span class="teaser__body">
+          <span class="teaser__title"><%= tz[1] %></span>
+          <span class="teaser__text"><%= tz[2] %></span>
+          <span class="teaser__link"><%= tz[3] %> <%- include('../partials/icon', { name: 'arrow' }) %></span>
+        </span>
+      </a>
+      <% }) %>
+    </div>
+  </section>
+
+  <%- include('../partials/cta-band') %>
+</main>
+
+<%- include('../partials/footer') %>

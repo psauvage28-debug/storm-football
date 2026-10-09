@@ -1,0 +1,71 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<% const principleIcons = ['repeat', 'spark', 'eye'];
+   const stepIcons = ['chat', 'video', 'screen', 'target'];
+   const clientIcons = ['ball', 'chart', 'users', 'target'];
+   let side = 0; %>
+
+<main id="main">
+  <%- include('../partials/page-hero', { kicker: tr.process.kicker, title: tr.process.heroTitle, lead: tr.about.text + ' ' + tr.process.scrollHint + '.' }) %>
+
+  <!-- Parcours : un éclair se dessine au scroll et illumine chaque étape -->
+  <section class="journey" data-journey>
+    <svg class="journey__svg" aria-hidden="true" focusable="false">
+      <path class="journey__track" d=""/>
+      <path class="journey__glow" d=""/>
+      <path class="journey__bolt" d=""/>
+      <g class="journey__head"><circle r="9"/><circle r="3.5"/></g>
+    </svg>
+    <div class="journey__flash" aria-hidden="true"></div>
+
+    <div class="container journey__inner">
+      <header class="jchap" data-stop>
+        <p class="kicker"><%= tr.approach.kicker %></p>
+        <h2 class="h2"><%= tr.approach.title %></h2>
+      </header>
+      <% tr.approach.items.forEach((it, i) => { %>
+      <article class="jstop jstop--<%= side++ % 2 ? 'right' : 'left' %>" data-stop>
+        <span class="jstop__icon"><%- include('../partials/icon', { name: principleIcons[i] }) %></span>
+        <div>
+          <h3><%= it[0] %></h3>
+          <p><%= it[1] %></p>
+        </div>
+      </article>
+      <% }) %>
+
+      <header class="jchap" data-stop>
+        <p class="kicker"><%= tr.process.stepsKicker %></p>
+        <h2 class="h2"><%= tr.process.title %></h2>
+      </header>
+      <% tr.process.steps.forEach((s, i) => { %>
+      <article class="jstop jstop--<%= side++ % 2 ? 'right' : 'left' %>" data-stop>
+        <span class="jstop__icon"><%- include('../partials/icon', { name: stepIcons[i] }) %></span>
+        <div>
+          <h3><%= s[0] %></h3>
+          <p><%= s[1] %></p>
+        </div>
+      </article>
+      <% }) %>
+
+      <header class="jchap" data-stop>
+        <p class="kicker"><%= tr.clients.kicker %></p>
+        <h2 class="h2"><%= tr.clients.title %></h2>
+      </header>
+      <ul class="jaudience" data-stop data-final>
+        <% tr.clients.items.forEach((c, i) => { %>
+        <li class="client" style="--d:<%= i %>">
+          <span class="jstop__icon"><%- include('../partials/icon', { name: clientIcons[i] }) %></span>
+          <h3><%= c[0] %></h3>
+          <p><%= c[1] %></p>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+  </section>
+
+  <!-- JOUEURS : section à activer quand des joueurs accompagnés pourront être présentés -->
+
+  <%- include('../partials/cta-band') %>
+</main>
+
+<%- include('../partials/footer') %>

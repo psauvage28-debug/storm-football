@@ -1,0 +1,21 @@
+<% const other = lang === 'fr' ? 'en' : 'fr'; const cur = (k) => key === k ? 'class="is-active" aria-current="page"' : ''; %>
+<header class="nav" data-nav>
+  <div class="nav__inner">
+    <a class="nav__brand" href="<%= routes.home %>" aria-label="STORM Football — <%= tr.nav.about %>">
+      <span class="nav__mark" data-spin><img src="/img/logo-mark.webp" alt="" width="48" height="32"></span>
+      <span class="nav__word">STORM</span>
+    </a>
+    <nav class="nav__links" id="nav-links" aria-label="Navigation principale">
+      <a href="<%= routes.home %>" <%- cur('home') %>><%= tr.nav.about %></a>
+      <a href="<%= routes.services %>" <%- cur('services') %>><%= tr.nav.services %></a>
+      <a href="<%= routes.work %>" <%- cur('work') %>><%= tr.nav.work %></a>
+      <a href="<%= routes.contact %>" <%- cur('contact') %>><%= tr.nav.contact %></a>
+      <a class="nav__lang" href="<%= langUrls[other] %>" data-set-lang="<%= other %>" hreflang="<%= other %>" lang="<%= other %>" aria-label="<%= tr.langSwitch.label %>"><%= tr.langSwitch.short %></a>
+    </nav>
+    <% if (key !== 'contact') { %><a class="btn btn--cta nav__cta" href="<%= routes.contact %>"><%= tr.cta %></a><% } %>
+    <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-links" data-burger>
+      <span></span><span></span><span class="sr-only"><%= tr.nav.menu %></span>
+    </button>
+  </div>
+  <div class="nav__progress" data-progress></div>
+</header>

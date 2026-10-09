@@ -1,0 +1,16 @@
+<section class="phero">
+  <div class="hero__bg" aria-hidden="true"><div class="hero__grid"></div></div>
+  <div class="container phero__inner">
+    <div>
+      <p class="kicker"><%= kicker %></p>
+      <h1 class="phero__title"><%= title %></h1>
+      <% if (locals.lead) { %><p class="lead"><%= lead %></p><% } %>
+    </div>
+    <div class="logo3d logo3d--page" data-logo3d="spin" aria-hidden="true">
+      <div class="logo3d__stack">
+        <% for (let i = 8; i >= 1; i--) { %><img class="logo3d__layer" style="--i:<%= i %>" src="/img/logo-storm.webp" alt="" width="720" height="720"><% } %>
+        <img class="logo3d__face" src="/img/logo-storm.webp" alt="" width="720" height="720">
+      </div>
+    </div>
+  </div>
+</section>

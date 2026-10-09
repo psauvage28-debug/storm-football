@@ -1,0 +1,46 @@
+<%- include('../partials/head', { pageTitle: (lang === 'fr' ? 'Conditions générales d’utilisation' : 'Terms of use') + ' — STORM Football' }) %>
+<%- include('../partials/header') %>
+<main id="main" class="page">
+  <div class="container prose">
+  <% if (lang === 'fr') { %>
+    <h1>Conditions générales d’utilisation</h1>
+    <p class="updated">En vigueur au 8 octobre 2026</p>
+    <h2>1. Objet</h2>
+    <p>Les présentes CGU encadrent l’utilisation du site STORM Football, qui présente l’activité d’analyse vidéo individuelle de Théo Brugel et permet de le contacter.</p>
+    <h2>2. Accès au site</h2>
+    <p>Le site est accessible gratuitement. L’éditeur s’efforce d’en assurer la disponibilité mais ne peut être tenu responsable d’une interruption, d’une maintenance ou d’un dysfonctionnement.</p>
+    <h2>3. Contenus</h2>
+    <p>Les analyses présentées sont des exemples à caractère illustratif. Elles ne constituent pas un engagement de résultat sportif. Les images de match appartiennent à leurs ayants droit.</p>
+    <h2>4. Utilisation du formulaire</h2>
+    <p>L’utilisateur s’engage à fournir des informations exactes et à ne pas utiliser le formulaire à des fins de spam, de prospection non sollicitée ou de manière illicite. Des protections anti-spam sont en place.</p>
+    <h2>5. Prestations</h2>
+    <p>Toute prestation d’accompagnement fait l’objet d’un devis et d’un accord préalable distincts, précisant le contenu, la durée et le prix.</p>
+    <h2>6. Propriété intellectuelle</h2>
+    <p>Voir les <a href="<%= routes.legal %>">mentions légales</a>.</p>
+    <h2>7. Liens externes</h2>
+    <p>Les liens vers Instagram, LinkedIn ou d’autres sites sont fournis pour information ; l’éditeur n’est pas responsable de leur contenu.</p>
+    <h2>8. Droit applicable</h2>
+    <p>Les présentes CGU sont soumises au droit français. En cas de litige, une solution amiable sera recherchée avant toute action devant les tribunaux compétents.</p>
+  <% } else { %>
+    <h1>Terms of use</h1>
+    <p class="updated">Effective 8 October 2026</p>
+    <h2>1. Purpose</h2>
+    <p>These terms govern the use of the STORM Football website, which presents Théo Brugel’s individual video analysis service and lets you contact him.</p>
+    <h2>2. Access</h2>
+    <p>The site is free to access. The publisher aims to keep it available but cannot be held liable for interruptions, maintenance or malfunctions.</p>
+    <h2>3. Content</h2>
+    <p>The analyses shown are illustrative examples and do not guarantee any sporting result. Match footage belongs to its rights holders.</p>
+    <h2>4. Contact form</h2>
+    <p>Users agree to provide accurate information and not to use the form for spam, unsolicited marketing or any unlawful purpose. Anti-spam protections are in place.</p>
+    <h2>5. Services</h2>
+    <p>Any coaching service is subject to a separate quote and prior agreement setting out its content, duration and price.</p>
+    <h2>6. Intellectual property</h2>
+    <p>See the <a href="<%= routes.legal %>">legal notice</a>.</p>
+    <h2>7. External links</h2>
+    <p>Links to Instagram, LinkedIn or other sites are provided for information; the publisher is not responsible for their content.</p>
+    <h2>8. Governing law</h2>
+    <p>These terms are governed by French law. In the event of a dispute, an amicable solution will be sought before any action in the competent courts.</p>
+  <% } %>
+  </div>
+</main>
+<%- include('../partials/footer') %>

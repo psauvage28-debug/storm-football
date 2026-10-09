@@ -1,0 +1,17 @@
+<%- include('../partials/head', { pageTitle: tr.notFound.title + ' — STORM Football' }) %>
+<%- include('../partials/header') %>
+<main id="main" class="notfound">
+  <div>
+    <div class="logo3d" data-logo3d="inview" aria-hidden="true">
+      <div class="logo3d__stack">
+        <% for (let i = 8; i >= 1; i--) { %><img class="logo3d__layer" style="--i:<%= i %>" src="/img/logo-storm.webp" alt="" width="720" height="720"><% } %>
+        <img class="logo3d__face" src="/img/logo-storm.webp" alt="" width="720" height="720">
+      </div>
+    </div>
+    <p class="notfound__code"><%= tr.notFound.code %></p>
+    <h1 class="h2"><%= tr.notFound.title %></h1>
+    <p class="lead" style="margin-inline:auto"><%= tr.notFound.text %></p>
+    <a class="btn btn--cta" href="<%= routes.home %>"><%= tr.notFound.back %></a>
+  </div>
+</main>
+<%- include('../partials/footer') %>

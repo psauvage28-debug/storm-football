@@ -1,0 +1,38 @@
+<%- include('../partials/head', { pageTitle: (lang === 'fr' ? 'Mentions légales' : 'Legal notice') + ' — STORM Football' }) %>
+<%- include('../partials/header') %>
+<main id="main" class="page">
+  <div class="container prose">
+  <% if (lang === 'fr') { %>
+    <h1>Mentions légales</h1>
+    <h2>Éditeur du site</h2>
+    <p><strong>STORM Football</strong> — Théo Brugel, entrepreneur individuel<br>
+      SIRET : [À COMPLÉTER]<br>
+      Adresse : [À COMPLÉTER]<br>
+      Téléphone : <a href="tel:+33601723132">+33 6 01 72 31 32</a><br>
+      Email : <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a><br>
+      Directeur de la publication : Théo Brugel</p>
+    <h2>Hébergement</h2>
+    <p>[NOM DE L’HÉBERGEUR — ex. Render Services, Inc., 525 Brannan Street, Suite 300, San Francisco, CA 94107, USA — render.com]</p>
+    <h2>Propriété intellectuelle</h2>
+    <p>Le logo STORM, les textes, montages vidéo et analyses présents sur ce site sont la propriété de Théo Brugel, sauf mention contraire. Les images de match restent la propriété de leurs ayants droit respectifs et sont reproduites à des fins d’illustration et d’analyse. Toute reproduction sans autorisation est interdite.</p>
+    <h2>Données personnelles</h2>
+    <p>Voir la <a href="<%= routes.privacy %>">politique de confidentialité</a>.</p>
+  <% } else { %>
+    <h1>Legal notice</h1>
+    <h2>Publisher</h2>
+    <p><strong>STORM Football</strong> — Théo Brugel, sole trader (France)<br>
+      SIRET: [TO BE COMPLETED]<br>
+      Address: [TO BE COMPLETED]<br>
+      Phone: <a href="tel:+33601723132">+33 6 01 72 31 32</a><br>
+      Email: <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a><br>
+      Publication director: Théo Brugel</p>
+    <h2>Hosting</h2>
+    <p>[HOSTING PROVIDER — e.g. Render Services, Inc., 525 Brannan Street, Suite 300, San Francisco, CA 94107, USA — render.com]</p>
+    <h2>Intellectual property</h2>
+    <p>The STORM logo, texts, video edits and analyses on this site belong to Théo Brugel unless stated otherwise. Match footage remains the property of its respective rights holders and is shown for illustration and analysis purposes. Any reproduction without permission is prohibited.</p>
+    <h2>Personal data</h2>
+    <p>See the <a href="<%= routes.privacy %>">privacy policy</a>.</p>
+  <% } %>
+  </div>
+</main>
+<%- include('../partials/footer') %>

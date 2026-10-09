@@ -1,0 +1,56 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<main id="main">
+  <%- include('../partials/page-hero', { kicker: tr.work.kicker, title: tr.work.title, lead: tr.work.intro }) %>
+
+  <section class="section work">
+    <div class="container">
+      <article class="video reveal">
+        <div class="video__frame">
+          <video controls preload="none" playsinline poster="/img/poster-josh-maja.webp?v=2" width="1280" height="720" aria-describedby="video-desc">
+            <source src="/video/analyse-josh-maja.mp4" type="video/mp4">
+            <p><%= tr.work.videoFallback %> <a href="/video/analyse-josh-maja.mp4"><%= tr.work.videoDownload %></a></p>
+          </video>
+        </div>
+        <div class="video__text">
+          <h2 class="video__title"><%= tr.work.videoTitle %></h2>
+          <p id="video-desc"><%= tr.work.videoText %></p>
+        </div>
+      </article>
+
+      <div class="filters reveal" role="group" aria-label="Filtres">
+        <button type="button" class="filter is-active" data-filter="all" aria-pressed="true"><%= tr.work.filters.all %></button>
+        <button type="button" class="filter filter--off" data-filter="off" aria-pressed="false"><%= tr.work.filters.off %></button>
+        <button type="button" class="filter filter--on" data-filter="on" aria-pressed="false"><%= tr.work.filters.on %></button>
+      </div>
+      <p class="work__match"><%= tr.work.matchLabel %></p>
+
+      <ul class="gallery" data-gallery>
+        <% tr.gallery.forEach((g, i) => { %>
+        <li class="shot reveal" data-phase="<%= g.phase %>" style="--d:<%= i % 3 %>">
+          <button type="button" class="shot__btn" data-index="<%= i %>" aria-label="<%= tr.work.open %> : <%= g.title %>">
+            <img src="/img/<%= g.slug %>-800.webp" alt="<%= g.caption %>" width="800" height="450" loading="lazy" decoding="async">
+          </button>
+          <p class="shot__cap"><span class="badge badge--<%= g.phase %>"><%= g.phase === 'off' ? tr.work.filters.off : tr.work.filters.on %></span> <strong><%= g.title %></strong></p>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <dialog class="lightbox" data-lightbox aria-label="<%= tr.work.title %>">
+      <button type="button" class="lightbox__close" data-lb="close" aria-label="<%= tr.work.close %>">×</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" data-lb="prev" aria-label="<%= tr.work.prev %>">‹</button>
+      <figure>
+        <img src="" alt="" width="1600" height="900">
+        <figcaption></figcaption>
+      </figure>
+      <button type="button" class="lightbox__nav lightbox__nav--next" data-lb="next" aria-label="<%= tr.work.next %>">›</button>
+    </dialog>
+  </section>
+
+  <%- include('../partials/cta-band') %>
+</main>
+
+<script type="application/json" id="gallery-data"><%- JSON.stringify(tr.gallery.map(g => ({ full: `/img/${g.slug}-1600.webp`, title: g.title, caption: g.caption }))).replace(/</g, '\\u003c') %></script>
+<%- include('../partials/footer') %>

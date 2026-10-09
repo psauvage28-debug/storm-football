@@ -1,0 +1,67 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<main id="main">
+  <%- include('../partials/page-hero', { kicker: tr.contact.kicker, title: tr.contact.title, lead: tr.contact.text }) %>
+
+  <section class="section contact">
+    <div class="container contact__inner">
+      <div class="contact__info reveal">
+        <div class="sign sign--card">
+          <img class="avatar avatar--lg" src="/img/theo-brugel-160.webp" srcset="/img/theo-brugel-160.webp 160w, /img/theo-brugel-320.webp 320w" sizes="88px" alt="Portrait de Théo Brugel" width="160" height="160" loading="lazy">
+          <p><strong><%= tr.about.name %></strong><br><%= tr.about.role %></p>
+        </div>
+        <ul class="contact__list">
+          <li><%- include('../partials/icon', { name: 'phone' }) %> <a href="tel:<%= tr.contact.phoneHref %>"><%= tr.contact.phone %></a></li>
+          <li><%- include('../partials/icon', { name: 'mail' }) %> <a href="mailto:<%= tr.contact.email %>"><%= tr.contact.email %></a></li>
+          <li><%- include('../partials/icon', { name: 'instagram' }) %> <a href="<%= tr.contact.instagram %>" target="_blank" rel="noopener">@storm.footb</a></li>
+          <li><%- include('../partials/icon', { name: 'linkedin' }) %> <a href="<%= tr.contact.linkedin %>" target="_blank" rel="noopener">Théo Brugel</a></li>
+        </ul>
+      </div>
+
+      <% const f = tr.contact.form; %>
+      <form class="form reveal" data-form novalidate action="/api/contact" method="post"
+            data-msg-ok="<%= f.ok %>" data-msg-fail="<%= f.fail %>" data-msg-rate="<%= f.rate %>" data-msg-sending="<%= f.sending %>">
+        <input type="hidden" name="lang" value="<%= lang %>">
+        <input type="hidden" name="ts" value="">
+        <div class="hp" aria-hidden="true">
+          <label for="website">Website</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="name"><%= f.name %> *</label>
+          <input id="name" name="name" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="err-name">
+          <p class="field__err" id="err-name" data-err="<%= f.errors.name %>"></p>
+        </div>
+        <div class="field">
+          <label for="email"><%= f.email %> *</label>
+          <input id="email" name="email" type="email" autocomplete="email" required maxlength="254" aria-describedby="err-email">
+          <p class="field__err" id="err-email" data-err="<%= f.errors.email %>"></p>
+        </div>
+        <div class="field">
+          <label for="profile"><%= f.profile %> *</label>
+          <select id="profile" name="profile" required aria-describedby="err-profile">
+            <option value=""><%= f.choose %></option>
+            <% Object.entries(f.profiles).forEach(([v, l]) => { %><option value="<%= v %>"><%= l %></option><% }) %>
+          </select>
+          <p class="field__err" id="err-profile" data-err="<%= f.errors.profile %>"></p>
+        </div>
+        <div class="field">
+          <label for="message"><%= f.message %> *</label>
+          <textarea id="message" name="message" rows="5" required minlength="20" maxlength="3000" placeholder="<%= f.messagePh %>" aria-describedby="err-message"></textarea>
+          <p class="field__err" id="err-message" data-err="<%= f.errors.message %>"></p>
+        </div>
+        <div class="field field--check">
+          <input id="consent" name="consent" type="checkbox" required aria-describedby="err-consent">
+          <label for="consent"><%= f.consent %> <a href="<%= routes.privacy %>"><%= f.consentLink %></a>). *</label>
+          <p class="field__err" id="err-consent" data-err="<%= f.errors.consent %>"></p>
+        </div>
+        <button class="btn btn--cta btn--block" type="submit"><%= f.submit %></button>
+        <p class="form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>

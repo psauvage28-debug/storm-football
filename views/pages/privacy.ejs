@@ -1,0 +1,46 @@
+<%- include('../partials/head', { pageTitle: (lang === 'fr' ? 'Politique de confidentialité (RGPD)' : 'Privacy policy (GDPR)') + ' — STORM Football' }) %>
+<%- include('../partials/header') %>
+<main id="main" class="page">
+  <div class="container prose">
+  <% if (lang === 'fr') { %>
+    <h1>Politique de confidentialité</h1>
+    <p class="updated">Dernière mise à jour : 8 octobre 2026</p>
+    <h2>Responsable du traitement</h2>
+    <p>Théo Brugel — STORM Football, <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a>.</p>
+    <h2>Données collectées et finalités</h2>
+    <ul>
+      <li><strong>Formulaire de contact</strong> : nom, email, profil et message, uniquement pour répondre à ta demande et, le cas échéant, préparer un accompagnement. Base légale : ton consentement et les mesures précontractuelles (art. 6.1.a et 6.1.b RGPD).</li>
+      <li><strong>Mesure d’audience</strong> (si tu l’acceptes) : pages vues, durée de visite, type d’appareil, via Google Analytics avec adresse IP anonymisée. Base légale : ton consentement (art. 6.1.a RGPD).</li>
+      <li><strong>Sécurité</strong> : l’adresse IP est utilisée temporairement pour limiter les envois abusifs du formulaire (intérêt légitime).</li>
+    </ul>
+    <h2>Durée de conservation</h2>
+    <p>Messages de contact : 3 ans après le dernier échange. Cookies de mesure d’audience : 13 mois maximum. Ton choix sur les cookies est conservé 13 mois.</p>
+    <h2>Destinataires</h2>
+    <p>Les données sont destinées à Théo Brugel uniquement. Elles transitent par le prestataire d’email et l’hébergeur du site. En cas d’accord pour la mesure d’audience, Google (Google Ireland Ltd) reçoit des données de navigation, avec un possible transfert vers les États-Unis encadré par le Data Privacy Framework. Aucune donnée n’est vendue.</p>
+    <h2 id="cookies">Cookies</h2>
+    <p>Le site n’utilise aucun cookie publicitaire. Les cookies Google Analytics (<code>_ga</code>, <code>_ga_*</code>) ne sont déposés qu’après ton accord via le bandeau. Tu peux modifier ton choix à tout moment avec le lien « Gérer les cookies » en bas de page. Refuser n’empêche pas d’utiliser le site.</p>
+    <h2>Tes droits</h2>
+    <p>Tu disposes d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et de portabilité, ainsi que du droit de retirer ton consentement à tout moment. Écris à <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a>. Tu peux aussi adresser une réclamation à la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).</p>
+  <% } else { %>
+    <h1>Privacy policy</h1>
+    <p class="updated">Last updated: 8 October 2026</p>
+    <h2>Data controller</h2>
+    <p>Théo Brugel — STORM Football, <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a>.</p>
+    <h2>Data collected and purposes</h2>
+    <ul>
+      <li><strong>Contact form</strong>: name, email, profile and message, used only to answer your request and, where relevant, prepare a follow-up. Legal basis: your consent and pre-contractual steps (GDPR art. 6.1.a and 6.1.b).</li>
+      <li><strong>Audience measurement</strong> (only if you accept): page views, visit duration, device type, via Google Analytics with IP anonymisation. Legal basis: your consent (GDPR art. 6.1.a).</li>
+      <li><strong>Security</strong>: your IP address is used temporarily to rate-limit form submissions (legitimate interest).</li>
+    </ul>
+    <h2>Retention</h2>
+    <p>Contact messages: 3 years after the last exchange. Analytics cookies: 13 months maximum. Your cookie choice is kept for 13 months.</p>
+    <h2>Recipients</h2>
+    <p>Data is intended for Théo Brugel only. It passes through the email provider and the website host. If you accept analytics, Google (Google Ireland Ltd) receives browsing data, with possible transfers to the USA under the Data Privacy Framework. No data is ever sold.</p>
+    <h2 id="cookies">Cookies</h2>
+    <p>This site uses no advertising cookies. Google Analytics cookies (<code>_ga</code>, <code>_ga_*</code>) are only set after you accept them in the banner. You can change your choice at any time using “Cookie settings” in the footer. Declining does not prevent you from using the site.</p>
+    <h2>Your rights</h2>
+    <p>You have the right to access, rectify, erase, restrict, object to and port your data, and to withdraw consent at any time. Email <a href="mailto:theobrugel.video@gmail.com">theobrugel.video@gmail.com</a>. You may also lodge a complaint with the French data protection authority, the CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>).</p>
+  <% } %>
+  </div>
+</main>
+<%- include('../partials/footer') %>

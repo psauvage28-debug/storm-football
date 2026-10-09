@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="<%= lang %>">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= locals.pageTitle || tr.meta.title %></title>
+  <meta name="description" content="<%= locals.pageDescription || tr.meta.description %>">
+  <% if (locals.noindex) { %><meta name="robots" content="noindex"><% } else { %>
+  <link rel="canonical" href="<%= canonical %>">
+  <% (alternates || []).forEach(a => { %><link rel="alternate" hreflang="<%= a.hreflang %>" href="<%= a.href %>">
+  <% }) } %>
+  <meta name="theme-color" content="#121212">
+
+  <!-- Réseaux sociaux -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="STORM Football">
+  <meta property="og:locale" content="<%= tr.locale %>">
+  <meta property="og:title" content="<%= locals.pageTitle || tr.meta.title %>">
+  <meta property="og:description" content="<%= locals.pageDescription || tr.meta.description %>">
+  <meta property="og:url" content="<%= canonical %>">
+  <meta property="og:image" content="<%= SITE_URL %>/img/og-storm.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Logo STORM Football">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;0,800;1,700;1,900&display=swap">
+  <link rel="preload" as="image" href="/img/logo-storm.webp" type="image/webp">
+  <link rel="stylesheet" href="/css/style.css?v=3">
+  <script src="/js/boot.js"></script>
+  <script src="/js/main.js?v=4" defer></script>
+
+  <% if (key === 'home') { %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "STORM Football",
+    "url": "<%= SITE_URL %>",
+    "logo": "<%= SITE_URL %>/img/logo-storm.png",
+    "image": "<%= SITE_URL %>/img/og-storm.jpg",
+    "description": "<%= tr.meta.description %>",
+    "telephone": "+33601723132",
+    "email": "theobrugel.video@gmail.com",
+    "founder": { "@type": "Person", "name": "Théo Brugel", "jobTitle": "Analyste vidéo football" },
+    "areaServed": "Worldwide",
+    "knowsLanguage": ["fr", "en"],
+    "sameAs": ["https://www.instagram.com/storm.footb/", "https://www.linkedin.com/in/th%C3%A9o-brugel-65057a1b7/"]
+  }
+  </script>
+  <% } %>
+</head>
+<body data-lang="<%= lang %>" data-ga="<%= GA_ID %>">
+<a class="skip" href="#main"><%= tr.skip %></a>
