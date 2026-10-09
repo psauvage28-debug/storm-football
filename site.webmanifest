@@ -1,0 +1,20 @@
+{
+  "name": "STORM Football",
+  "short_name": "STORM",
+  "icons": [
+    {
+      "src": "/storm-football/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/storm-football/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#121212",
+  "background_color": "#121212",
+  "display": "standalone",
+  "start_url": "/storm-football/"
+}

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://psauvage28-debug.github.io/storm-football/sitemap.xml
