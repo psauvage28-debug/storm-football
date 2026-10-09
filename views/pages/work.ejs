@@ -36,6 +36,7 @@
         </li>
         <% }) %>
       </ul>
+      <p class="gallery__hint" aria-hidden="true"><%= lang === 'fr' ? 'Fais glisser pour voir les analyses' : 'Swipe to see the analyses' %> <%- include('../partials/icon', { name: 'arrow' }) %></p>
     </div>
 
     <dialog class="lightbox" data-lightbox aria-label="<%= tr.work.title %>">

@@ -400,7 +400,8 @@ p { margin: 0 0 1em; }
 .journey__flash.is-flashing { animation: jflash .55s ease-out; }
 @keyframes jflash { 0% { opacity: 0; } 15% { opacity: 1; } 30% { opacity: .3; } 45% { opacity: .9; } 100% { opacity: 0; } }
 
-.journey__inner { position: relative; z-index: 1; display: grid; gap: clamp(56px, 8vw, 110px); }
+.journey__inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(56px, 8vw, 110px); }
+.jchap .h2, .jstop h3 { overflow-wrap: anywhere; hyphens: auto; }
 
 /* Titres de chapitre : centrés sur l'éclair, fond opaque pour que l'éclair passe derrière */
 .jchap { justify-self: center; text-align: center; max-width: 720px; padding: 26px 30px; border-radius: 20px; background: var(--bg); border: 1px solid var(--line); opacity: .45; transform: scale(.96); transition: opacity .6s var(--ease), transform .6s var(--ease), border-color .6s, box-shadow .6s; }
@@ -440,7 +441,8 @@ p { margin: 0 0 1em; }
 
 @media (max-width: 1024px) { .jaudience { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 860px) {
-  .journey__inner { gap: 48px; padding-left: 40px; }
+  .journey__inner { gap: 40px; padding-left: 36px; }
+  .jchap .h2 { font-size: clamp(1.5rem, 7vw, 2rem); }
   .jchap { justify-self: stretch; text-align: left; padding: 20px; }
   .jchap .kicker { justify-content: flex-start; }
   .jstop { width: 100%; padding: 20px; }
@@ -454,3 +456,72 @@ p { margin: 0 0 1em; }
 @media (prefers-reduced-motion: reduce) {
   .jchap, .jstop, .jaudience .client { opacity: 1; filter: none; transform: none; }
 }
+
+/* ---------- Mobile : mise en page resserrée ---------- */
+@media (max-width: 860px) {
+  .section { padding: 56px 0; }
+  .section__head { margin-bottom: 28px; }
+
+  /* Accueil : logo plus petit, bouton visible dès l'arrivée */
+  .hero { min-height: auto; padding: 88px 0 48px; }
+  .hero__inner { gap: 14px; }
+  .hero__logo .logo3d { width: min(170px, 46vw); }
+  .hero__title { font-size: clamp(2.3rem, 11vw, 3.2rem); margin-bottom: .35em; }
+  .hero__lead { font-size: 1rem; }
+  .tags { gap: 8px; margin-bottom: 1.4rem; }
+  .tags li { padding: 6px 11px; font-size: .8rem; gap: 6px; }
+  .tags .icon { width: 15px; height: 15px; }
+  .hero__text > .btn, .band__inner .btn { width: 100%; }
+
+  /* En-tête des pages : petit logo à droite du titre */
+  .phero { padding: 96px 0 40px; }
+  .phero__inner { display: block; }
+  .phero .logo3d--page { position: absolute; top: -6px; right: 0; width: 72px; }
+  .phero .kicker, .phero__title { padding-right: 84px; }
+  .phero__title { font-size: clamp(1.9rem, 8.5vw, 2.6rem); }
+  .phero .lead { font-size: 1rem; }
+
+  /* Présentation */
+  .about__inner { gap: 28px; }
+  .about__photo { order: 1; }
+  .stats { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 22px; }
+  .stats div { padding: 12px 10px; }
+  .stats dt { font-size: 1.3rem; }
+  .stats dd { font-size: .74rem; }
+
+  .teaser__body { padding: 18px 18px 20px; }
+  .teaser__title { font-size: 1.25rem; }
+  .band { padding: 48px 0; }
+  .band__inner { gap: 18px; }
+
+  /* Pied de page compact */
+  .footer { padding: 40px 0 24px; }
+  .footer__inner { gap: 24px; }
+  .footer__links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  .footer__links a, .footer__links .linklike { text-decoration: none; text-align: left; }
+  .footer .logo3d--small { width: 96px; }
+}
+
+@media (max-width: 560px) {
+  /* Galerie : défilement horizontal au doigt au lieu d'une longue colonne */
+  .gallery {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 86%;
+    overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px;
+    margin-inline: -16px; padding: 0 16px 10px; scrollbar-width: none;
+  }
+  .gallery::-webkit-scrollbar { display: none; }
+  .shot { scroll-snap-align: center; }
+  .js .shot.reveal { opacity: 1; transform: none; }
+  .shot__cap { font-size: .85rem; }
+  .video { padding: 8px; gap: 8px; margin-bottom: 32px; }
+  .video__text { padding: 8px 10px 12px; }
+  .video__title { font-size: 1.15rem; }
+  .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .filter { flex: none; }
+  .form { padding: 18px; }
+  .sign--card { padding: 14px; }
+}
+.gallery__hint { display: none; align-items: center; gap: 8px; color: var(--muted); font-size: .8rem; margin: 10px 0 0; }
+.gallery__hint .icon { width: 16px; height: 16px; color: var(--yellow); animation: nudge 1.4s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translateX(5px); } }
+@media (max-width: 560px) { .gallery__hint { display: flex; } }
