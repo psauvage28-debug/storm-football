@@ -304,6 +304,14 @@
       e.preventDefault();
       const bad = fields.filter((n) => !check(n, true));
       if (bad.length) { form[bad[0]].focus(); return; }
+      // Version statique (aperçu sans serveur) : ouverture de la messagerie avec le message pré-rempli
+      if ('static' in form.dataset) {
+        const sel = form.profile.options[form.profile.selectedIndex].text;
+        const body = `${form.name.value}\n${form.email.value}\n${sel}\n\n${form.message.value}`;
+        location.href = `mailto:theobrugel.video@gmail.com?subject=${encodeURIComponent(`[STORM] ${form.name.value} (${sel})`)}&body=${encodeURIComponent(body)}`;
+        status.className = 'form__status is-ok'; status.textContent = form.dataset.msgOk;
+        return;
+      }
       const btn = $('button[type="submit"]', form);
       const label = btn.textContent;
       btn.disabled = true; btn.textContent = form.dataset.msgSending;
