@@ -68,7 +68,7 @@ p { margin: 0 0 1em; }
 .nav.is-scrolled { background: rgba(18, 18, 18, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 .nav__inner { width: min(var(--container), 100% - 32px); margin-inline: auto; display: flex; align-items: center; gap: 24px; height: 72px; }
 .nav__brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--yellow); perspective: 400px; }
-.nav__mark { display: block; width: 48px; transform-style: preserve-3d; will-change: transform; filter: drop-shadow(0 0 6px var(--yellow-glow)); }
+.nav__mark { display: block; width: 48px; filter: drop-shadow(0 0 6px var(--yellow-glow)); }
 .nav__word { font: 900 italic 1.35rem/1 var(--font); letter-spacing: .02em; text-shadow: 0 0 12px var(--yellow-glow); }
 .nav__links { display: flex; gap: 26px; margin-left: auto; align-items: center; }
 .nav__links a { color: var(--text); text-decoration: none; font-weight: 700; font-size: .92rem; position: relative; }
@@ -78,7 +78,15 @@ p { margin: 0 0 1em; }
 .nav__lang::after { display: none; }
 .nav__cta { padding: .8em 1.2em; font-size: .82rem; }
 .nav__burger { display: none; }
-.nav__progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: var(--yellow); transform-origin: left; transform: scaleX(var(--p, 0)); box-shadow: 0 0 10px var(--yellow-glow); }
+.nav__progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none; }
+.nav__bar { position: absolute; inset: 0; background: var(--yellow); transform-origin: left; transform: scaleX(var(--p, 0)); box-shadow: 0 0 10px var(--yellow-glow); }
+/* Le logo court au bout de la barre de progression */
+.nav__rider {
+  position: absolute; bottom: -2px; left: calc(var(--p, 0) * 100%); width: 36px; height: auto;
+  transform: translateX(calc(var(--p, 0) * -100%)); filter: drop-shadow(0 0 6px var(--yellow-glow));
+  opacity: 0; transition: opacity .3s;
+}
+.nav.is-scrolled .nav__rider { opacity: 1; }
 
 @media (max-width: 960px) {
   .nav__cta { display: none; }

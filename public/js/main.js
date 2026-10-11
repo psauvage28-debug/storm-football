@@ -27,7 +27,6 @@
   const heroLogo = $('[data-logo3d="scroll"] .logo3d__stack');
   const heroShadow = $('[data-logo3d="scroll"] .logo3d__shadow');
   const hero = $('[data-hero]');
-  const navMark = $('[data-spin]');
   const spinLogos = $$('[data-logo3d="spin"] .logo3d__stack');
   const inviewLogos = $$('[data-logo3d="inview"]');
   const steps = $('[data-steps]');
@@ -49,8 +48,6 @@
     progress?.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
     if (reduce) return;
 
-    // Pictogramme de la nav : tourne sur lui-même avec le scroll
-    if (navMark) navMark.style.transform = `rotateY(${(y * .6) % 360}deg)`;
     // Logos des pages intérieures : rotation continue liée au scroll
     spinLogos.forEach((s) => { s.style.setProperty('--ry', `${y * .45}deg`); s.style.setProperty('--rx', `${Math.sin(y / 300) * 12}deg`); });
 
