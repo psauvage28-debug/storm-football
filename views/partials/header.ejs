@@ -2,7 +2,7 @@
 <header class="nav" data-nav>
   <div class="nav__inner">
     <a class="nav__brand" href="<%= routes.home %>" aria-label="STORM Football — <%= tr.nav.about %>">
-      <span class="nav__mark"><img src="/img/logo-mark.webp" alt="" width="48" height="32"></span>
+      <span class="nav__mark" data-mark><img src="/img/logo-mark.webp" alt="" width="48" height="32"></span>
       <span class="nav__word">STORM</span>
     </a>
     <nav class="nav__links" id="nav-links" aria-label="Navigation principale">
@@ -17,8 +17,5 @@
       <span></span><span></span><span class="sr-only"><%= tr.nav.menu %></span>
     </button>
   </div>
-  <div class="nav__progress" data-progress aria-hidden="true">
-    <div class="nav__bar"></div>
-    <img class="nav__rider" src="/img/logo-mark.webp" alt="" width="36" height="24">
-  </div>
+  <div class="nav__progress" data-progress aria-hidden="true"><div class="nav__bar"></div></div>
 </header>

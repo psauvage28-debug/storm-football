@@ -27,6 +27,7 @@
   const heroLogo = $('[data-logo3d="scroll"] .logo3d__stack');
   const heroShadow = $('[data-logo3d="scroll"] .logo3d__shadow');
   const hero = $('[data-hero]');
+  const markImg = $('[data-mark] img');
   const spinLogos = $$('[data-logo3d="spin"] .logo3d__stack');
   const inviewLogos = $$('[data-logo3d="inview"]');
   const steps = $('[data-steps]');
@@ -43,9 +44,22 @@
 
   function onScroll() {
     const y = scrollY;
-    const max = document.documentElement.scrollHeight - innerHeight;
+    const max = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     nav?.classList.toggle('is-scrolled', y > 20);
     progress?.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+    if (markImg && nav && !reduce) {
+      // t : passage de la marque à la barre (sur les 90 premiers px), p : progression de la page
+      const t = Math.min(1, y / 90);
+      const p = max > 0 ? y / max : 0;
+      const home = markImg.parentElement.getBoundingClientRect();
+      const s = 1 - t * 0.3;                       // le logo rétrécit un peu sur la barre
+      const w = home.width * s;
+      const x = Math.min(1, p) * (document.documentElement.clientWidth - w);             // bout de la barre, sans sortir de l'écran
+      const lineY = nav.getBoundingClientRect().bottom - 1;
+      const dx = (x - home.left) * t;
+      const dy = (lineY - home.bottom) * t;      // origine du transform : coin bas gauche
+      markImg.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) scale(${s.toFixed(3)})`;
+    }
     if (reduce) return;
 
     // Logos des pages intérieures : rotation continue liée au scroll
