@@ -5,7 +5,7 @@ const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const { t, routes, alternate } = require('./src/i18n');
-const { sendContact, validateContact } = require('./src/contact');
+const { sendContact, validateContact, checkMail } = require('./src/contact');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,11 +18,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('trust proxy', 1);
 app.disable('x-powered-by');
 
-// Force HTTPS (derrière le proxy de l'hébergeur) + domaine canonique
+const SITE_HOST = new URL(SITE_URL).host;
+
+// Sonde de santé pour l'hébergeur (avant toute redirection)
+app.get('/healthz', (req, res) => res.type('text/plain').send('ok'));
+
+// Force HTTPS + domaine canonique (www, *.onrender.com -> domaine principal).
+// On redirige toujours vers SITE_HOST, jamais vers l'en-tête Host reçu (évite les redirections détournées).
 if (IS_PROD) {
   app.use((req, res, next) => {
-    if (req.headers['x-forwarded-proto'] !== 'https') {
-      return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+    if (req.headers['x-forwarded-proto'] !== 'https' || req.headers.host !== SITE_HOST) {
+      return res.redirect(301, `https://${SITE_HOST}${req.originalUrl}`);
     }
     next();
   });
@@ -45,10 +51,18 @@ app.use(helmet({
   },
   hsts: IS_PROD ? { maxAge: 63072000, includeSubDomains: true, preload: true } : false,
   crossOriginEmbedderPolicy: false,
+  referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
 }));
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()');
+  next();
+});
+// Limite globale anti-abus (large : un visiteur normal n'en approche jamais)
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, limit: 600, standardHeaders: 'draft-7', legacyHeaders: false }));
 app.use(compression());
 app.use(express.json({ limit: '20kb' }));
 
+app.use('/.well-known', express.static(path.join(__dirname, 'public', '.well-known')));
 app.use(express.static(path.join(__dirname, 'public'), {
   maxAge: IS_PROD ? '30d' : 0,
   setHeaders(res, file) {
@@ -96,6 +110,10 @@ const contactLimiter = rateLimit({
   message: { ok: false, error: 'rate' },
 });
 app.post('/api/contact', contactLimiter, async (req, res) => {
+  // Uniquement du JSON envoyé depuis le site lui-même
+  if (!req.is('application/json')) return res.status(415).json({ ok: false, error: 'type' });
+  const origin = req.headers.origin;
+  if (IS_PROD && origin && origin !== `https://${SITE_HOST}`) return res.status(403).json({ ok: false, error: 'origin' });
   const body = req.body || {};
   // Anti-spam : champ piège + délai minimal de remplissage
   const elapsed = Date.now() - Number(body.ts || 0);
@@ -114,7 +132,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
 });
 
 app.get('/robots.txt', (req, res) => {
-  res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+  res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /healthz\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
 });
 
 app.get('/sitemap.xml', (req, res) => {
@@ -145,4 +163,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(500).send('Erreur serveur');
 });
 
-app.listen(PORT, () => console.log(`STORM en ligne sur ${SITE_URL}`));
+app.listen(PORT, () => {
+  console.log(`STORM en ligne sur ${SITE_URL}`);
+  checkMail().then((msg) => console.log(`[contact] ${msg}`));
+});

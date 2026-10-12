@@ -5,12 +5,12 @@ services:
     plan: free
     buildCommand: npm ci --omit=dev
     startCommand: npm start
-    healthCheckPath: /robots.txt
+    healthCheckPath: /healthz
     envVars:
       - key: NODE_ENV
         value: production
       - key: SITE_URL
-        value: https://storm-football.onrender.com
+        sync: false
       - key: GA_ID
         sync: false
       - key: SMTP_HOST

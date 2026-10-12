@@ -39,7 +39,9 @@ async function sendContact(d) {
   const tx = getTransporter();
   const text = `Nouvelle demande via le site STORM\n\nNom : ${d.name}\nEmail : ${d.email}\nProfil : ${d.profile}\nLangue : ${d.lang}\n\n${d.message}`;
   if (!tx) {
-    console.log('[contact] SMTP non configuré — message reçu :\n' + text);
+    // En production, pas d'envoi silencieux : le visiteur est invité à écrire directement
+    if (process.env.NODE_ENV === 'production') throw new Error('SMTP non configuré');
+    console.log('[contact] SMTP non configuré (dev) — message reçu :\n' + text);
     return;
   }
   await tx.sendMail({
@@ -51,4 +53,12 @@ async function sendContact(d) {
   });
 }
 
-module.exports = { validateContact, sendContact, PROFILES };
+// Vérifie au démarrage que les identifiants SMTP fonctionnent (sans envoyer de mail)
+async function checkMail() {
+  const tx = getTransporter();
+  if (!tx) return 'SMTP non configuré : les messages du formulaire ne seront pas envoyés.';
+  try { await tx.verify(); return `SMTP OK, messages envoyés à ${process.env.CONTACT_TO || 'theobrugel.video@gmail.com'}`; }
+  catch (err) { return `SMTP en erreur : ${err.message}`; }
+}
+
+module.exports = { validateContact, sendContact, checkMail, PROFILES };
