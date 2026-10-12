@@ -47,9 +47,14 @@ function copyDir(src, dst) {
     const urls = [...new Set(Object.values(routes).flatMap((r) => Object.values(r)))];
     for (const u of urls) {
       const html = await (await fetch(`http://localhost:${PORT}${u}`)).text();
-      const file = path.join(OUT, u === '/' ? '' : u, 'index.html');
-      fs.mkdirSync(path.dirname(file), { recursive: true });
-      fs.writeFileSync(file, prefix(netlifyForm(html, u)));
+      // /accompagnement -> accompagnement.html : servi sans redirection (Netlify et GitHub Pages)
+      const files = u === '/' ? ['index.html'] : [`${u.slice(1)}.html`];
+      if (u === routes.en.home) files.push('en/index.html'); // /en et /en/
+      for (const f of files) {
+        const file = path.join(OUT, f);
+        fs.mkdirSync(path.dirname(file), { recursive: true });
+        fs.writeFileSync(file, prefix(netlifyForm(html, u)));
+      }
     }
     const notFound = await (await fetch(`http://localhost:${PORT}/__404__`)).text();
     fs.writeFileSync(path.join(OUT, '404.html'), prefix(notFound));

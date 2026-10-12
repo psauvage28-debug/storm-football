@@ -6,6 +6,7 @@
 [build.environment]
   NODE_VERSION = "22"
   NPM_FLAGS = "--omit=dev"
+  SITE_ORIGIN = "https://storm-football.com"
 
 [[headers]]
   for = "/*"
@@ -26,9 +27,3 @@
   for = "/video/*"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
-
-# Version anglaise : /en/ et /en mènent au même endroit
-[[redirects]]
-  from = "/en"
-  to = "/en/"
-  status = 301
