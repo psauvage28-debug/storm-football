@@ -315,22 +315,24 @@
       e.preventDefault();
       const bad = fields.filter((n) => !check(n, true));
       if (bad.length) { form[bad[0]].focus(); return; }
-      // Version statique (aperçu sans serveur) : ouverture de la messagerie avec le message pré-rempli
-      if ('static' in form.dataset) {
-        const sel = form.profile.options[form.profile.selectedIndex].text;
-        const body = `${form.name.value}\n${form.email.value}\n${sel}\n\n${form.message.value}`;
-        location.href = `mailto:theobrugel.video@gmail.com?subject=${encodeURIComponent(`[STORM] ${form.name.value} (${sel})`)}&body=${encodeURIComponent(body)}`;
-        status.className = 'form__status is-ok'; status.textContent = form.dataset.msgOk;
-        return;
-      }
       const btn = $('button[type="submit"]', form);
       const label = btn.textContent;
       btn.disabled = true; btn.textContent = form.dataset.msgSending;
       status.className = 'form__status'; status.textContent = '';
       try {
-        const payload = Object.fromEntries(new FormData(form));
-        payload.consent = form.consent.checked;
-        const res = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        let res;
+        if ('static' in form.dataset) {
+          // Site statique (Netlify Forms) : envoi encodé comme un formulaire classique
+          res = await fetch(form.getAttribute('action'), {
+            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(new FormData(form)).toString(),
+          });
+          if (res.ok) res = { ok: true, status: res.status, json: async () => ({ ok: true }) };
+        } else {
+          const payload = Object.fromEntries(new FormData(form));
+          payload.consent = form.consent.checked;
+          res = await fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        }
         const json = await res.json().catch(() => ({}));
         if (res.ok && json.ok) {
           status.classList.add('is-ok'); status.textContent = form.dataset.msgOk;

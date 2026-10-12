@@ -1,6 +1,7 @@
-// Export statique du site (aperçu sur GitHub Pages).
-// Usage : BASE_PATH=/storm-football SITE_ORIGIN=https://user.github.io node scripts/export-static.js
-// Le formulaire de contact n'a pas de serveur en statique : il bascule sur l'envoi par email.
+// Export statique du site (Netlify en production, GitHub Pages pour l'aperçu).
+// Usage : node scripts/export-static.js   (sur Netlify, l'URL du site vient de la variable URL)
+//         BASE_PATH=/storm-football SITE_ORIGIN=https://user.github.io node scripts/export-static.js
+// Le formulaire de contact est confié à Netlify Forms (aucune clé ni mot de passe dans le site).
 const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
@@ -9,13 +10,19 @@ const { routes } = require('../src/i18n');
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'dist');
 const BASE = (process.env.BASE_PATH || '').replace(/\/+$/, '');
-const ORIGIN = (process.env.SITE_ORIGIN || 'http://localhost').replace(/\/+$/, '');
+const ORIGIN = (process.env.SITE_ORIGIN || process.env.URL || 'http://localhost').replace(/\/+$/, '');
 const PORT = 3199;
 
 const prefix = (html) => html
   .replace(/(=")\/(?!\/)/g, `$1${BASE}/`)                       // href, src, poster, action, data-*
   .replace(/(srcset="[^"]*")/g, (m) => m.replace(/(,\s*)\/(?!\/)/g, `$1${BASE}/`))
   .replace(/("full":")\/(?!\/)/g, `$1${BASE}/`);                 // données JSON de la galerie
+
+// Formulaire de contact -> Netlify Forms (détecté au déploiement, honeypot "website")
+const netlifyForm = (html, pagePath) => html
+  .replace('data-form novalidate action="/api/contact" method="post"',
+    `data-form data-static name="contact" data-netlify="true" netlify-honeypot="website" novalidate action="${pagePath}" method="post"`)
+  .replace('<input type="hidden" name="lang"', '<input type="hidden" name="form-name" value="contact">\n        <input type="hidden" name="lang"');
 
 function copyDir(src, dst) {
   fs.mkdirSync(dst, { recursive: true });
@@ -42,7 +49,7 @@ function copyDir(src, dst) {
       const html = await (await fetch(`http://localhost:${PORT}${u}`)).text();
       const file = path.join(OUT, u === '/' ? '' : u, 'index.html');
       fs.mkdirSync(path.dirname(file), { recursive: true });
-      fs.writeFileSync(file, prefix(html).replace('data-form ', 'data-form data-static '));
+      fs.writeFileSync(file, prefix(netlifyForm(html, u)));
     }
     const notFound = await (await fetch(`http://localhost:${PORT}/__404__`)).text();
     fs.writeFileSync(path.join(OUT, '404.html'), prefix(notFound));

@@ -6,6 +6,11 @@ Stack : Node 20+ / Express 5 / EJS, sans framework front.
 Pages : Accueil `/` · Accompagnement `/accompagnement` · Analyses `/analyses` · Contact `/contact` (+ `/en/...`).
 À la première visite, une fenêtre propose Français / English (choix mémorisé), puis la bannière cookies.
 
+## Mise en ligne (Netlify)
+Netlify lance `node scripts/export-static.js` (voir `netlify.toml`) et publie `dist/`.
+Le formulaire passe par Netlify Forms : activer la notification email dans Netlify → Forms.
+`server.js` reste utilisable pour le développement local.
+
 ```bash
 npm install
 cp .env.example .env   # puis compléter
@@ -22,8 +27,8 @@ Les fichiers bruts sont dans `assets-src/` (la vidéo `.mov` n'est pas versionn�
 |---|---|---|
 | 1 | Page RGPD | `/politique-de-confidentialite` · `/en/privacy-policy` |
 | 2 | CGU | `/cgu` · `/en/terms` (+ mentions légales) |
-| 3 | API hors front-end | `POST /api/contact`, identifiants SMTP uniquement dans `.env` |
-| 4 | HTTPS forcé | redirection 301 + HSTS en production (`server.js`) |
+| 3 | API hors front-end | Netlify Forms côté serveur : aucune clé ni mot de passe dans le site |
+| 4 | HTTPS forcé | certificat Netlify + HSTS (`netlify.toml`) |
 | 5 | Bannière cookies | GA chargé seulement après « Accepter », lien « Gérer les cookies » |
 | 6 | Meta title | titre + description par page et par langue, canonical, hreflang |
 | 7 | Image réseaux | `public/img/og-storm.jpg` (1200×630) |
