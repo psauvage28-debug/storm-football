@@ -6,18 +6,22 @@
 
   <section class="section work">
     <div class="container">
-      <article class="video reveal">
-        <div class="video__frame">
-          <video controls preload="none" playsinline poster="/img/poster-josh-maja.webp?v=2" width="1280" height="720" aria-describedby="video-desc">
-            <source src="/video/analyse-josh-maja.mp4" type="video/mp4">
-            <p><%= tr.work.videoFallback %> <a href="/video/analyse-josh-maja.mp4"><%= tr.work.videoDownload %></a></p>
-          </video>
-        </div>
-        <div class="video__text">
-          <h2 class="video__title"><%= tr.work.videoTitle %></h2>
-          <p id="video-desc"><%= tr.work.videoText %></p>
-        </div>
-      </article>
+      <div class="videos">
+        <% tr.work.videos.forEach((v) => { %>
+        <article class="video reveal">
+          <div class="video__frame">
+            <video controls preload="none" playsinline poster="/img/poster-<%= v.poster || (v.slug + '.webp') %>" width="1280" height="720" aria-describedby="video-desc-<%= v.slug %>">
+              <source src="/video/analyse-<%= v.slug %>.mp4" type="video/mp4">
+              <p><%= tr.work.videoFallback %> <a href="/video/analyse-<%= v.slug %>.mp4"><%= tr.work.videoDownload %></a></p>
+            </video>
+          </div>
+          <div class="video__text">
+            <h2 class="video__title"><%= v.title %></h2>
+            <p id="video-desc-<%= v.slug %>"><%= v.text %></p>
+          </div>
+        </article>
+        <% }) %>
+      </div>
 
       <div class="filters reveal" role="group" aria-label="Filtres">
         <button type="button" class="filter is-active" data-filter="all" aria-pressed="true"><%= tr.work.filters.all %></button>
